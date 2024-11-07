@@ -120,3 +120,22 @@ join candidate c on c.cand_id = s.cand_id
 join requirement r on r.req_id = s.req_id;
 
 
+
+ select s.sub_id,c.cand_id,c.name,r.reqname,r.company,c.salary from submission s
+join candidate c on c.cand_id = s.cand_id
+left join requirement r on r.req_id = s.req_id
+where s.cand_id in ( select cand_id from submission group by cand_id having count(1)>1); 
+ 
+ select count(1) 
+ from submission s
+ join candidate c on c.cand_id = s.cand_id;
+ 
+ select count(1),s.cand_id 
+ from submission s
+ left join candidate c on c.cand_id = s.cand_id
+ group by s.cand_id;
+ 
+select s.sub_id,s.cand_id,c.name
+ from submission s
+ left join candidate c on c.cand_id = s.cand_id;
+
