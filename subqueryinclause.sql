@@ -19,3 +19,12 @@ group by dept
 having sum(salary) < (select sum(salary) from employer);
 
 
+INSERT INTO employerhistory (emp_id, dept, maxsalary)
+SELECT e.emp_id, e.dept, d.maxsalary
+FROM employer e
+JOIN Department d ON d.departname = e.dept
+WHERE not exists (
+    SELECT 1
+    FROM employerhistory eh
+    WHERE eh.emp_id = e.emp_id
+);
