@@ -28,3 +28,16 @@ WHERE not exists (
     FROM employerhistory eh
     WHERE eh.emp_id = e.emp_id
 );
+
+
+update employer e1
+set salary = (select max(maxsalary) + max(maxsalary) * 0.1
+				from employerhistory e2 where e2.dept = e1.dept )
+where emp_id in (select emp_id from employerhistory
+				where dept like "data%" order by emp_id)
+and 
+salary < (select avg(maxsalary) from department)
+
+
+
+
